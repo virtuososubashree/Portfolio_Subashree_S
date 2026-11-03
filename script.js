@@ -1,4 +1,26 @@
-// 1. Mobile Menu Toggle
+// 1. Theme Toggle Logic
+const themeBtn = document.getElementById('theme-toggle');
+const htmlElement = document.documentElement;
+
+// Check for saved theme in local storage
+const savedTheme = localStorage.getItem('portfolio-theme');
+if (savedTheme) {
+    htmlElement.setAttribute('data-theme', savedTheme);
+    themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+}
+
+themeBtn.addEventListener('click', () => {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    htmlElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('portfolio-theme', newTheme);
+    
+    // Change icon based on theme
+    themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+});
+
+// 2. Mobile Menu Toggle
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('nav-links');
 
@@ -13,7 +35,7 @@ document.querySelectorAll('.nav-links a').forEach(link => {
     });
 });
 
-// 2. Scroll Reveal Animation using Intersection Observer
+// 3. Scroll Reveal Animation using Intersection Observer
 const observerOptions = {
     root: null,
     rootMargin: '0px',
@@ -33,7 +55,7 @@ document.querySelectorAll('.hidden').forEach((element) => {
     observer.observe(element);
 });
 
-// 3. Typewriter Effect for Hero Section
+// 4. Typewriter Effect for Hero Section
 const phrases = ["Hardware Prototyper", "AI Systems Integrator", "Creative Developer"];
 const typewriterElement = document.getElementById('typewriter');
 let phraseIndex = 0;
